@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Stone Age dokumentáció</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+    <style>
+        @-webkit-keyframes playCh {
+            from {
+                background-position: 256px 0;
+            }
+            to {
+                background-position: 0 0;
+            }
+        }
+
+        @keyframes playCh {
+            from {
+                background-position: 256px 0;
+            }
+            to {
+                background-position: 0 0;
+            }
+        }
+
+        @-webkit-keyframes playTiles {
+            from {
+                background-position: -256px 0;
+            }
+            to {
+                background-position: -256px -960px;
+            }
+        }
+
+        @keyframes playTiles {
+            from {
+                background-position: -256px 0;
+            }
+            to {
+                background-position: -256px -960px;
+            }
+        }
+
+        .sidebar {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 10px;
+        }
+
+        div.extra {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        div.character {
+            height: 64px;
+            width: 64px;
+
+            background: url("textures/character_transparent.png") 256px 0;
+            -webkit-animation: playCh .8s steps(4) infinite;
+            animation: playCh .8s steps(4) infinite;
+        }
+
+        div.tiles {
+            height: 192px;
+            width: 448px;
+
+            background: url("textures/tiles.png") 256px 0;
+            -webkit-animation: playTiles 5s steps(5) infinite;
+            animation: playTiles 5s steps(5) infinite;
+        }
+
+        h2 {
+            margin-top: 40px;
+            margin-left: -10px;
+        }
+
+        p.lead {
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid mt-5">
+        <div class="row justify-content-center">
+            <div class="col-10">
+                <div class="jumbotron">
+                    <span class="h1">Stone Age dokumentáció</span>
+                    <div style="display: inline-block" class="character"></div>
+                    <p class="lead">A választott feladatom a Stone Age c. DOS játék implemetnációja C-ben.</p>
+                    <hr class="my-4">
+                    <p>
+                        <a target="_blank" href="http://akosbalogh.github.io">Balogh Ákos </a>
+                    </p>
+                    <small>I1FASF</small>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-4 col-xl-3">
+                <div class="sidebar card">
+                    <div class="card-header">
+                        <strong>Tartalomjegyzék</strong>
+                    </div>
+                    <div class="list-group list-group-flush">
+                        <a class="list-group-item list-group-item-action" href="#intro">Bevezető</a>
+                        <a class="list-group-item list-group-item-action list-group-item-light" href="#user-manual">
+                            <strong>Felhasználói dokumentáció</strong>
+                        </a>
+                        <a class="list-group-item list-group-item-action" href="#about-project">
+                            <span class="ml-3">- A projektről</span>
+                        </a>
+                        <a class="list-group-item list-group-item-action" href="#inputs">
+                            <span class="ml-3">- A Bemenetek</span>
+                        </a>
+                        <a class="list-group-item list-group-item-action" href="#control">
+                            <span class="ml-3">- Az irányítás</span>
+                        </a>
+                        <a class="list-group-item list-group-item-action list-group-item-light" href="#programmers-manual">
+                            <strong>Programozói dokumentáció</strong>
+                        </a>
+                        <a class="list-group-item list-group-item-action" href="#files">
+                            <span class="ml-3">- Fordítandó, és fordító fájlok</span>
+                        </a>
+                        <a class="list-group-item list-group-item-action" href="#types">
+                            <span class="ml-3">- Típusok</span>
+                        </a>
+                        <a class="list-group-item list-group-item-action" href="#fnheaders">
+                            <span class="ml-3">- Fontosabb függvények ismertetése</span>
+                        </a>
+                        <a class="list-group-item list-group-item-action list-group-item-light" href="#future">
+                            <strong>A projekt jövője</strong>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-8 col-lg-7 col-xl-6">
+                <div class="container-fluid">
+                    <div id="intro" class="row">
+                        <div class="col">
+                            <h2>Bevezető</h2>
+                            <p>A Stone Age egy fantasztikus logikai játék, amely hazánkban igen elterjedt volt. Egy dinoszauruszt
+                                kell minden pályán átvezetnünk a kijáratig.</p>
+                            <p>Természetesen a kijárat elérése megannyi bonyodalommal jár. A speciális mezőket a space gombbal
+                                is aktiválhatjuk. A kezdeti pályák könnyűek, tanító jellegűek, de a játék gyorsan nehezedik.
+                                Összesen 100 pálya vár a vállalkozó kedvűekre. Érdemes a pályák kódjait feljegyzetelni, hogy
+                                ott folytathassuk, ahol abbahagytuk.
+                            </p>
+                            <p>A kezelés kiváló, a grafika szép, hangeffektek sajnos nincsenek, de a rengeteg és szép hátérzene
+                                kárpótolja a játékost. Kötelező darab!</p>
+                        </div>
+                    </div>
+                    <div id="user-manual" class="row">
+                        <div class="col">
+                            <h2>Felhasználói dokumentáció</h2>
+
+                            <p id="about-project" class="lead">A projektről</p>
+                            <p>A házi célja a fent leírt játék legpontosabb implementációja C-ben.</p>
+                            <p>A menüben elindíthatjuk a játékot, vagy beírhatunk egy pálya kódot is, ha valahonnan folytatni
+                                szeretnénk.</p>
+                            <p>Karakterünket a lentebb leírt módon irányíthatjuk, a cél hogy elérjünk a pálya kijáratához. Vannak
+                                olyan pályák is, ahol nem csak karakterünkkel kell mozgatni a blokkokat, hanem telepatikus
+                                módon, egy négyzet alakú kurzor segítégével. A játék pályáról, pályára nehezedik.
+                            </p>
+                            <p id="inputs" class="lead">Bemenet</p>
+                            <p>A
+                                <code>resources</code> mappa
+                                <a target="_blank" href="https://drive.google.com/open?id=1nDsNAjqcTyk35AuJUMgobwedbeIC2vw-">innen</a>
+                                tölthető le.
+                            </p>
+                            <p>A grafikus elemek döntő része képként van a programban betöltve,
+                                <code>resources/textures</code> mappában találhatók.
+                            </p>
+                            <p>A program a pályákat
+                                <code>.txt</code> fájlokból olvassa be, mindegyik pálya neve megegyezik a kódjával. 5 db van. Pl.:
+                                <code>resources/levels/BOVIDO.txt</code>
+                            </p>
+                            <p>A program a háttérzenéje
+                                <code>.ogg</code> formátumban van betölve, helye:
+                                <code>resources/soundtrack/soundtrack.ogg</code>
+                                <br>
+                            </p>
+                            <div style="display:block;position: relative">
+                                <p id="control" class="lead">Irányítás</p>
+                                <p>A karakter mozgatása:
+                                    <kbd>SNES kontroller</kbd>, vagy
+                                    <kbd>&larr;</kbd>
+                                    <kbd>&rarr;</kbd>
+                                    <kbd>&uarr;</kbd>
+                                    <kbd>&darr;</kbd>.</p>
+                                <div class="character extra"></div>
+                            </div>
+                            <p>
+                                <kbd>enter &#11152;</kbd> - Telepatikus mozgatás aktiválása</p>
+                            <p>
+                                <kbd>
+                                    <span class="px-4">space</span>
+                                </kbd> - blokk kijelölése telepatikus mozgatásra</p>
+                            <p>
+                                <kbd>1</kbd> ,
+                                <kbd>F1</kbd> - Indítás első pályától</p>
+                            <p>
+                                <kbd>2</kbd> ,
+                                <kbd>F2</kbd> - Indítás cheat kóddal</p>
+                            <p class="text-warning">Viszalépés:
+                                <kbd>bal Alt</kbd>.</p>
+                            <p class="text-danger">Kilépés:
+                                <kbd>esc</kbd>.</p>
+                        </div>
+                    </div>
+                    <div id="programmers-manual" class="row">
+                        <div class="col">
+                            <h2>Programozói dokumentáció</h2>
+                            <p id="files" class="lead">Fordítandó fájlok, lib-ek</p>
+                            <p>
+                                <code>stoneage.c</code> A játék képernyők közti navigálását, és a modulok betöltését tartalmazza.
+                            </p>
+                            <p>
+                                <code>types.h, types.h</code>A közös típusokat tartalmazza, amelyekre minden modulnak szüksége
+                                van.</p>
+                            <p>
+                                <code>core.h, core.h</code>A billenytű leütéseket, a navigálást végzi, ez felelős a rajzolás irányításáért.
+                            </p>
+                            <p>
+                                <code>graphics.h, graphics.h</code>Az összes grafikai utasítást tartalmazza. Rajzoló fv.-ek, stb.
+                            </p>
+                            <p>
+                                <code>raylib/src</code> a felhasznált grafikus könyvtár forráskódja, fordításkor érdemes a program
+                                mellé fordítani.
+                                <a target="_blank" href="https://github.com/raysan5/raylib/releases/tag/1.8.0">1.8.0 Letöltés</a>
+                                <br>
+                                <small>Függőségei:
+                                    <code>glfw</code>,
+                                    <code>OpenGL</code>,
+                                    <code>OpenAL</code>,
+                                    <code>Cocoa (macOS-en)
+                                    </code>
+                                </small>
+                            </p>
+                            <p class="lead">Fordító fájlok</p>
+                            <p>
+                                <code>CMakeLists.txt</code>Ez tartalmazza a főbb beállításokat a fordításhoz
+                                <small>
+                                    <code>(folyamat: cmake->makefile->futtatható file)</code>
+                                </small>
+                                <br>
+                                <small>Ha szükséges Windows / Linux-ra is elkészítem, jelenleg macOS specifikus</small>
+                            </p>
+                            <p id="resources" class="lead">Nyersanyagok
+                                <span class="float-right">
+                                    <a href="https://drive.google.com/open?id=1nDsNAjqcTyk35AuJUMgobwedbeIC2vw-">
+                                        <small>Letöltés</small>
+                                    </a>
+                                </span>
+                            </p>
+                            <p>
+                                <code>resources/</code>
+                            </p>
+                            <p class="ml-4">
+                                <code>&#11153;/textures/*.png</code> ez tartalmazza az összes textúrát amit a játék betölt, saját
+                                összevágás, illetve párat újrarajzoltam</p>
+                            <p class="ml-4">
+                                <code>&#11153;/soundtrack/soundtrack.ogg</code>a játék eredeti zenéje
+                                <p class="ml-4">
+                                    <code>&#11153;/levels/*.txt</code>jelenleg 5 pálya készült el a teszetléshez.
+                                    <br>
+                                    <small>Első sora a textúra eltolását tartalmazza, utána pedig a pálya méretei, illetve elemei.
+                                    </small>
+                                </p>
+                                <p id="types" class="lead">Típusok</p>
+                                <p>Maga a játék és a pálya egy
+                                    <code>Game</code> típusú változóban eltárolva.</p>
+                                <pre><code class="c">
+    typedef struct Game {
+                int levelTextureOffset;
+                bool paused;
+                bool levelSucceed;
+                char cheatcodeTemp[6 + 1];
+                openedScreen currentScreen;
+                Vector2 offset;
+                controlTypes controlType;
+
+            //    Textures
+                Texture2D texture;
+                Texture2D background;
+                Texture2D bottom;
+                Texture2D menu;
+                Texture2D character;
+                Texture2D cheat;
+
+                Player player;
+                TelepathicMover telepathicMover;
+                Position finish;
+                Position teleports[2];
+
+                int points;
+                Block ***blocks;
+ } Game;
+
+                        </code></pre>
+                                <p>Ez tartalmazza a fontosabb beállításokat, amik változhatnak a játék során.</p>
+                                <p>Ami érdekesebb lehet, az a pálya tárolása:
+                                    <code>Block ***blocks;</code>
+                                </p>
+                                <p>Beolvasáskor foglalom le e pályát a memóriában, majd kikeresem egy konverziós táblázatban
+                                    ahhoz a stringhez tartozó sort, majd arra állítok egy pointert. Új pálya betöltésekor,
+                                    az előzőt felszabadítom.</p>
+                                <p>Azért ezt válaszottam, mert csak 19 fajta blokk van, sokkal gyorsabb a
+                                    <code>map_X * map_y
+                                    </code>
+                                    méretű pályát csak ilyen blokkokra mutató pointerekkel feltölteni, egyszerűbb a mozgatás, nem kell mindig kikeresni a listából,
+                                    megtérül, mivel pl.: 1ms alatt ~60x fut le az animálás
+                                </p>
+                                <pre><code class="c">
+                            ...
+     game->blocks = (Block ***) malloc(sizeof(Block) * map_X);
+     for(...)
+        game->blocks[j] = (Block **) malloc(sizeof(Block) * map_Y);
+        for(...)
+            Block *block = getBlockPointer(s);
+                            ...
+                        </code></pre>
+                                <hr>
+                                <p>Az egyszerű mozgatáshoz létrehoztam egy ilyen típust:</p>
+                                <pre><code class="c">
+typedef struct Directions {
+    xSpeed x; // {BAL, JOBB}
+    ySpeed y; // {FENT, LENT}
+} Directions;
+                        </code></pre>
+                                <p>Ennek a segítségével tudom a mozgásirányokat kezelni, és navigálni a pályán. A blokkok, melyek
+                                    mozognak is rendelkeznek ilyennel, a lehetséges irányokat mutatja náluk.</p>
+                                <hr>
+                                <p>A pályákon található blokkok 5 különböző kinézettel rendelkeznek.</p>
+                                <div class="tiles"></div>
+                                <hr>
+                                <p id="fnheaders" class="lead">Fontosabb függvények ismertetése </p>
+                                <code>stoneage.c</code>
+                                <ul class="list-group mt-1 mb-3">
+                                    <li class="list-group-item">
+                                        <pre><code class="c">
+       while (!WindowShouldClose()) {
+        switch (game->currentScreen) {
+            case mainmenu:
+                movesCounter = 0;
+                strcpy(game->cheatcodeTemp, "\0");
+                GetMenuState(game);
+                break;
+            case init :
+                InitLevel(game);
+                game->currentScreen = playinglevel;
+                break;
+            case playinglevel:
+                GetGameState(game);
+                break;
+            case cheatcode:
+                CheatCodeScreen(game);
+                break;
+            default:
+                DrawMainMenu(*game, WHITE);
+                break;
+        }
+        framesCounter++;
+    }</code></pre>
+                                        <br>A jelenlegi kiválasztott kijelző, mód betöltése.
+                                    </li>
+                                </ul>
+                                <code>core.c</code>
+                                <ul class="list-group mt-1 mb-3">
+                                    <li class="list-group-item">
+                                        <pre><code class="c">Block *getBlockPointer(char *enumString);</code></pre>
+                                        <br>Visszatér a konverziós tábla egyik sorára mutató pointerrel.
+                                    </li>
+
+                                    <li class="list-group-item">
+                                        <pre><code class="c">bool canMoveThere(Game game, Position next_position);</code></pre>
+                                        <br>Megmondja, hogy lehet-e a célterültre lépni.
+                                    </li>
+
+                                    <li class="list-group-item">
+                                        <pre><code class="c">bool isPositionOnLevel(Position next_position);</code></pre>
+                                        <br>Megmondja hogy ahova tartanánk az a pályán van-e még
+                                    </li>
+                                    <li class="list-group-item">
+                                        <pre><code class="c">Position getNextPosition(Position position, Directions player_directions);</code></pre>
+                                        <br>Ez számolja ki input alapján a következő pozíciót
+                                    </li>
+                                    <li class="list-group-item">
+                                        <pre><code class="c">void updateTelepathic(Game *game);</code></pre>
+                                        <br>Ez mozgatja a telepatikus kiválasztót
+                                    </li>
+                                    <li class="list-group-item">
+                                        <pre><code class="c">void updateTelepathicBlock(Game *game);</code></pre>
+                                        <br>Ez végzi a telepatikus mozgatást a kiválasztott blokkon
+                                    </li>
+                                    <li class="list-group-item">
+                                        <pre><code class="c">void updateCharacter(Game *game);</code></pre>
+                                        <br>A karakter mozgatása, és a pálya frissítése ez alapján történik.
+                                    </li>
+                                    <li class="list-group-item">
+                                        <pre><code class="c">void GetGameState(Game *game);</code></pre>
+                                        <br>Ez adja meg a felhasználó mit szeretne, milyen inputot adott meg.
+                                    </li>
+                                    <li class="list-group-item">
+                                        <pre><code class="c">void InitLevel(Game *game);</code></pre>
+                                        <br>Ez inicializálja a pályákat. Innen vannak a malloc-os példák.
+                                    </li>
+                                    <li class="list-group-item">
+                                        <pre><code class="c">void GetMenuState(Game *game)</code></pre>
+                                        <br>Ez kezeli a menüt.
+                                    </li>
+                                    <li class="list-group-item">
+                                        <pre><code class="c">void UnloadGame(Game *game);</code></pre>
+                                        <br>Ez törli a textúrákat a VRAM-ból, a játék bezárásakor.
+                                    </li>
+                                </ul>
+                                <code>graphics.c</code>
+                                <ul class="list-group mt-1 mb-3">
+                                    <li class="list-group-item">
+                                        <pre><code class="c">void ShowLevel(Game game, bool is_moving_block, Position position, int offset, Axis axis);</code></pre>
+                                        <br>Megjeleníti a pályát,
+                                        <code>offset, axis</code> értékei alapján kezeli az animálást.
+                                    </li>
+                                    <li class="list-group-item">
+                                        <pre><code class="c">void UpdateGame(Game *game, bool is_animating, bool is_moving_block, Position current_position, Axis axis);</code></pre>
+                                        <br>Meghívja a kirajzolásokat, a mozgás típusok alapján, illetvem hogy milyen blokkon
+                                        vagyunk, és hova tartunnk.
+                                    </li>
+                        </div>
+                    </div>
+                    <div id="future" class="row">
+                        <div class="col">
+                            <h2>A projekt jövője</h2>
+                            <p>A jelenelgi változat nagy örömömre megszólalásig hasonlít az eredetihez. Terveim közt van, hogy
+                                bővítem a pályák számát, illetve gépi tanuló algoritmusokkal generálok randomizált méretű,
+                                illetve nehézségű pályákat.</p>
+                            <small>Az egész projekt GitHub repo-ja publikus lesz állítva a házi feladat befejeztével.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="my-5 px-5">
+            <p>
+                <a target="_blank" href="http://akosbalogh.github.io">Balogh Ákos </a>
+                <small>I1FASF</small>
+            </p>
+        </footer>
+    </div>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
+</body>
+
+</html>
